@@ -7,8 +7,7 @@
         </a>
         <a href="{{ route('categoria') }}" wire:navigate class="btn btn-primary">Categorías</a>
         <a href="{{ route('proveedores') }}" wire:navigate class="btn btn-ghost">Proveedores</a>
-        <a href="#" class="btn btn-ghost">Vehículos</a>
-        <a href="#" class="btn btn-ghost">Repuestos</a>
+        <a href="{{ route('repuestos') }}" wire:navigate class="btn btn-ghost">Repuestos</a>
     </div>
 
     <div class="flex flex-1 justify-center">

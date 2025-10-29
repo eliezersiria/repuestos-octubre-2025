@@ -1,6 +1,4 @@
 <div>
-    {{-- The whole world belongs to you. --}}
-    {{-- FORMULARIO --}}
 
     <div class="border-l-4 border-primary pl-4 flex">
 
@@ -55,10 +53,7 @@
 
             </form>
 
-
-
         </fieldset>
-
 
     </div>
 
