@@ -24,3 +24,4 @@ Route::get('/proveedores/trash',  [ProveedorController::class, 'trash'])->name('
 
 Route::get('/repuestos', [RepuestoController::class, 'index'])->name('repuestos')->middleware('auth');
 Route::get('/repuestos/create', [RepuestoController::class, 'create'])->name('repuestos.crear')->middleware('auth');
+Route::get('/repuestos/show', [RepuestoController::class, 'show'])->name('repuestos.show')->middleware('auth');

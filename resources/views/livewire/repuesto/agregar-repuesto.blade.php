@@ -97,6 +97,7 @@
                     </div>
 
                     <div>
+                        <label class="label">Descripción</label>
                         <textarea class="textarea" placeholder="descripcion" wire:model="descripcion"
                             rows="4"></textarea>
                     </div>

@@ -14,13 +14,13 @@
     <div class="navbar-center flex gap-4">
 
         <a href="{{ route('repuestos.crear')}}"
-            class="{{ Route::is('proveedores.crear') ? 'btn btn-primary' : 'btn btn-soft' }}" wire:navigate>
+            class="{{ Route::is('repuestos.crear') ? 'btn btn-primary' : 'btn btn-soft' }}" wire:navigate>
             <img src="{{ asset('storage/images/iconsmini/agregar.png') }}" />
             Agregar Repuesto
         </a>
 
-        <a href="{{ route('proveedores.show')}}"
-            class="{{ Route::is('proveedores.show') ? 'btn btn-primary' : 'btn btn-soft' }}" wire:navigate>
+        <a href="{{ route('repuestos.show')}}"
+            class="{{ Route::is('repuestos.show') ? 'btn btn-primary' : 'btn btn-soft' }}" wire:navigate>
             <img src="{{ asset('storage/images/iconsmini/portapapeles.png') }}" />
             Lista de Repuestos
         </a>

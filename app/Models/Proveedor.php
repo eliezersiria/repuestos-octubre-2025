@@ -15,10 +15,8 @@ class Proveedor extends Model
         'direccion'
     ];
 
-    /*
     public function repuestos()
     {
         return $this->hasMany(Repuesto::class);
     }
-    */
 }
