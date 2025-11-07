@@ -6,6 +6,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property int $id
+ * @property string $codigo
+ * @property string $nombre
+ * @property string|null $marca
+ * @property string|null $descripcion
+ * @property float $precio_compra
+ * @property float $precio_venta
+ * @property float|null $precio_promo
+ * @property int $stock
+ * @property string|null $url
+ * @property bool $activo
+ * @property string|null $thumb
+ * @property int $categoria_id
+ * @property int $proveedor_id
+ */
+
 class Repuesto extends Model
 {
     use HasFactory, SoftDeletes;
@@ -45,7 +62,7 @@ class Repuesto extends Model
     // Relación muchos a muchos con Vehiculo
     public function vehiculos()
     {
-        return $this->belongsToMany(Vehiculo::class, 'repuesto_vehiculo', 'repuesto_id', 'vehiculo_id');
+        return $this->belongsToMany(Vehiculo::class, 'repuesto_vehiculos', 'repuesto_id', 'vehiculo_id');
     }
 
     

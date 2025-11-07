@@ -11,5 +11,5 @@
 @endsection
 
 @section('content')
-    <livewire:repuesto.show-repuestos />
+    <livewire:repuesto.editar-repuesto :id="$id" />
 @endsection

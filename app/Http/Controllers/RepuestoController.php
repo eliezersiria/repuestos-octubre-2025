@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Repuesto;
 
 class RepuestoController extends Controller
 {
@@ -19,5 +20,10 @@ class RepuestoController extends Controller
     public function show()
     {
         return view('repuesto.listar-repuesto');
+    }
+
+    public function edit($id)
+    {
+        return view('repuesto.edit-repuesto', compact('id'));
     }
 }

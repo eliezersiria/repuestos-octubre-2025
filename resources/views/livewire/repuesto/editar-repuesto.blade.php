@@ -1,9 +1,8 @@
 <div>
-
+    {{-- If your happiness depends on money, you will never be happy with yourself. --}}
     <div class="border-l-4 border-primary pl-4 flex">
 
         <fieldset class="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-
             @if (session()->has('message'))
                 <div role="alert" class="alert alert-success alert-outline">
                     <span class="flex justify-center">{{ session('message') }}
@@ -11,9 +10,9 @@
                 </div>
             @endif
 
-            <legend class="badge">AGREGAR REPUESTO @svg('heroicon-s-newspaper', 'w-5 h-5')</legend>
+            <legend class="badge">EDITAR REPUESTO</legend>
 
-            <form wire:submit="saveRepuesto">
+            <form wire:submit.prevent="editRepuestoSuccess">
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
@@ -48,15 +47,31 @@
 
                     <div>
                         <label class="label">Vehículo</label>
-                        <select class="select appearance-none" wire:model="vehiculo_id">
-                            <option value="">Seleccionar vehículo</option>
-                            @foreach ($vehiculos as $vehiculo)
-                                <option value="{{ $vehiculo->id }}">
-                                    {{ "$vehiculo->marca $vehiculo->modelo $vehiculo->anio"}}
-                                </option>
-                            @endforeach
-                        </select>
+                        <div class="join">
+                            <select class="select appearance-none" wire:model="vehiculo_id">
+                                <option value="">Agregar vehículo</option>
+                                @foreach ($vehiculos as $vehiculo)
+                                    <option value="{{ $vehiculo->id }}">
+                                        {{ "$vehiculo->marca $vehiculo->modelo $vehiculo->anio"}}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <button class="btn btn-success join-item">Agregar</button>
+                        </div>
                         @error('vehiculo_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+
+                        <fieldset class="border">
+                            <legend>Vehículos compatibles</legend>
+                            <div class="join">
+                                @foreach ($vehiculosCompatibles as $vc)
+                                    <p class="badge badge-xs">{{ $vc->marca }}</p>
+                                    <a href="#" class="tooltip tooltip-top" data-tip="Eliminar {{ $vc->marca }}">
+                                        <img src="{{ asset('storage/images/iconsmini/papelera.png') }}" />
+                                    </a>
+                                @endforeach
+                            </div>
+                        </fieldset>
+                        
                     </div>
 
                     <div>
@@ -104,15 +119,11 @@
                         @error('descripcion') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
 
-                    <div wire:key="file-container-{{ $fileKey }}">
+                    <div>
                         <div>
-                            <input type="file" wire:model="thumb" accept="image/*">
-
-                            @if ($thumb)
-                                <img src="{{ $thumb->temporaryUrl() }}" class="h-40 rounded-lg" />
-                            @else
-                                <img src="{{ asset('storage/images/iconsmini/imagen_default.png') }}" class="rounded-lg" />
-                            @endif
+                            <input type="file" wire:model.live="thumb" accept="image/*">
+                            <img src="{{ $thumb instanceof \Illuminate\Http\UploadedFile ? $thumb->temporaryUrl() : ($thumb ? Storage::url($thumb) : asset('storage/images/iconsmini/imagen_default.png')) }}"
+                                class="h-40 w-40 object-cover rounded-lg shadow-md" alt="Vista previa" />
                         </div>
                         @error('thumb') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
@@ -124,7 +135,9 @@
 
             </form>
 
+
         </fieldset>
 
     </div>
+
 </div>

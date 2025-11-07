@@ -13,6 +13,7 @@
 </head>
 
 <body class="container mx-auto">
+
     <!-- 1️⃣ Navbar -->
     <div class="flex flex-col h-screen p-4 gap-0">
         <nav>
@@ -32,6 +33,10 @@
         <main>
             @yield('content')
         </main>
+
+        <footer>
+            <x-footer />
+        </footer>
 
     </div>
     @livewireScripts

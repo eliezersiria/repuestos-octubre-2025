@@ -26,7 +26,7 @@
                         <label class="label">
                             <span class="label-text">Correo electrónico</span>
                         </label>
-                        <label class="input input-sm">
+                        <label class="input">
                             <x-heroicon-o-user class="w-4 h-4" />
                             <input type="email" wire:model="email" required />
                         </label>
@@ -36,7 +36,7 @@
                         <label class="label">
                             <span class="label-text">Contraseña</span>
                         </label>
-                        <label class="input input-sm">
+                        <label class="input">
                             <x-heroicon-o-key class="w-4 h-4" />
                             <input type="password" wire:model="password" required />
                         </label>

@@ -40,7 +40,7 @@ class AgregarRepuesto extends Component
 
     public function updatedPrecioCompra($value)
     {
-        $this->precio_venta = is_numeric($value) ? $value * 1.4 : null;
+        $this->precio_venta = is_numeric($value) ? round($value * 1.4, 2) : null;
     }
     public function updatedNombre($value)
     {
@@ -85,7 +85,7 @@ class AgregarRepuesto extends Component
 
         if ($this->thumb) {
             // Guardar imagen si se subió 
-            $filename = time().Str::random() . ".webp";
+            $filename = time() . Str::random() . ".webp";
             // create new manager instance with desired driver
             $manager = new ImageManager(new Driver());
             // read image
@@ -123,7 +123,7 @@ class AgregarRepuesto extends Component
         $this->reset();
         $this->mount(); // Volver a inicializar como en el mount
         $this->fileKey = rand(); // Cambiar la key fuerza el re-render
-        session()->flash('message', "Repuesto guardado correctamente!");
+        session()->flash('message', "Repuesto guardado correctamente");
     }
 
     public function render()

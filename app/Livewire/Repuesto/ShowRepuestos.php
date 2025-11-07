@@ -49,38 +49,33 @@ class ShowRepuestos extends Component
     {
         $this->resetPage();
     }
-    public function editarProducto($id)
-    {
-        $repuesto = Repuesto::findOrFail($id);
-        $this->repuesto_id = $repuesto->id;
-        $this->codigo = $repuesto->codigo;
-        $this->nombre = $repuesto->nombre;
-        $this->marca = $repuesto->marca;
-        $this->descripcion = $repuesto->descripcion;
-        $this->precio_compra = $repuesto->precio_compra;
-        $this->precio_venta = $repuesto->precio_venta;
-        $this->precio_promo = $repuesto->precio_promo;
-        $this->stock = $repuesto->stock;
-        $this->url = $repuesto->url;
-        $this->activo = $repuesto->activo;
-        $this->thumb = $repuesto->thumb;
-        $this->categoria_id = $repuesto->categoria_id;
-        $this->proveedor_id = $repuesto->proveedor_id;
-        $this->editMode = true; // Muestra el formulario en lugar de la tabla
-    }
 
     public function updateRepuesto()
     {
         $this->validate();
-
     }
     public function render()
     {
+        //$repuestos = Repuesto::with('vehiculos')->get();
         $inicio = microtime(true);
-
-        $this->repuestos = Repuesto::query()->when($this->search, function ($query) {
-            $query->where('nombre', 'like', "%$this->search%");
-        })->paginate(10);
+        $this->repuestos = Repuesto::with(['vehiculos', 'categoria', 'proveedor'])
+            ->when($this->search, function ($query) {
+                $search = $this->search;
+                $query->where(function ($q) use ($search) {
+                    // 1. Buscar en nombre del repuesto
+                    $q->where('nombre', 'like', "%{$search}%");
+                })
+                    ->orWhere(function ($q) use ($search) {
+                        // 2. Buscar en vehículos compatibles
+                        $q->whereHas('vehiculos', function ($sub) use ($search) {
+                            $sub->where('marca', 'like', "%{$search}%")
+                                ->orWhere('modelo', 'like', "%{$search}%")
+                                ->orWhere('anio', 'like', "%{$search}%");
+                        });
+                    });
+            })
+            ->orderBy('nombre')
+            ->paginate(10);
 
         $fin = microtime(true);
         $this->tiempo = round($fin - $inicio, 3);
